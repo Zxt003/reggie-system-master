@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionAdvice {
 
     @ExceptionHandler(ServiceException.class)
-    public R serviceExceptionHandler(ServiceException e){   
+    public R serviceExceptionHandler(ServiceException e){
         return R.error(e.getMessage());
     }
 
@@ -19,7 +19,7 @@ public class ExceptionAdvice {
         // 见异常信息输出在控制台
             e.printStackTrace();
             return R.error("后端异常");
-    }
+    }//修改
 }
 
 /**
