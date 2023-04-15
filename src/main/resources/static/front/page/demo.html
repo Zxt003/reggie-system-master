@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=d5Y5C26Xbhr3rBHo3GzzaA7xcXev6NL0"></script>
+    <title>步行导航的结果面板</title>
+    <style type="text/css">
+        body, html{
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            font-family:"微软雅黑";
+        }
+        #l-map{
+            height:100%;
+            width:100%;
+        }
+        #r-result,#r-result table{
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+<div id="l-map"></div>
+<div id="r-result"></div>
+</body>
+</html>
+<script src="../../backend/plugins/vue/vue.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el:"'#demo",
+        data(){
+            return{
+                end:""
+            }
+        },
+        getProduct(){
+            axios({
+                method:'post',
+                url:'/order/map',
+                parms:this.query
+            }).then((response) =>{
+                this.total=response.data.total
+
+            })
+        },
+        method(){
+            this.getProduct();
+            const map = new BMapGL.Map("l-map");
+            const end = this.query.addressBookId;
+            map.centerAndZoom(new BMapGL.Point(109.215906, 23.77253), 18);
+            const walking = new BMapGL.WalkingRoute(map, {
+                renderOptions: {
+                    map: map,
+                    panel: "r-result",
+                    autoViewport: true
+                }
+            });
+            walking.search("来宾市广西科技师范学院北门", end);
+        }
+
+    })
+    // 百度地图API功能
+
+</script>

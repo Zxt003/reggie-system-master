@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zgc.app.mapper.DishMapper">
+    <select id="selectPageWithCategory" resultType="com.zgc.app.entity.Dish">
+        SELECT
+                (select name from category where id = category_id) as category_name,
+                d.*
+        FROM `dish` d
+        ${ew.customSqlSegment}
+    </select>
+</mapper>
