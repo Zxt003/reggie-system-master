@@ -21,9 +21,11 @@ public class MyUserDetailsService implements UserDetailsService {
         // 获取用户
         QueryWrapper<Employee> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(Employee::getUsername,username);
+        System.out.println(queryWrapper);
         Employee employee = employeeService.getOne(queryWrapper);
         System.out.println(employee);
         User user = new User(employee.getUsername(), employee.getPassword(), AuthorityUtils.createAuthorityList("EMPLOYEE"));
+        System.out.println(user);
         return user;
     }
 }

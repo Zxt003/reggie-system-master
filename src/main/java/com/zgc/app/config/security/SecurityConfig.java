@@ -35,11 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             String jsonR = JSON.toJSONString(R.success(userInfo));
             response.setContentType("application/json");
             response.getWriter().print(jsonR);
+            System.out.println(response.getWriter().printf(jsonR));
         }).failureHandler((request,response,authenticationException)->{
             // 框架认证失败后 回调
             String jsonR = JSON.toJSONString(R.error().setMsg(Constant.EMPLOYEE_NOT_LOGIN));
             response.setContentType("application/json");
             response.getWriter().print(jsonR);
+            System.out.println(response.getWriter().printf(jsonR));
         });
         // 用户身份校验异常
         // http.exceptionHandling().authenticationEntryPoint(renttyPoint);
